@@ -1,0 +1,156 @@
+<div class="container">
+  <div class="row pt-3">
+    <div class="col-6">
+      <h4>Student</h4>
+    </div>
+    <div class="col-6 text-end">
+      <button class="btn btn-outline-success" (click)="openModel()">
+        Add New
+      </button>
+    </div>
+  </div>
+  @if (studentList.length !== 0) {
+  <div class="row">
+    @for (item of studentList; track $index) {
+    <div class="col-3">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-6">
+              {{ item.name }}
+            </div>
+            <div class="col-6 text-end">
+              {{ item.mobileNumber }}
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>{{ item.city }}, {{ item.state }}, {{ item.pincode }}</p>
+          <p>{{ item.address }}</p>
+        </div>
+        <div class="card-footer text-center">
+          <div class="row">
+            <div class="col-7">
+              <small>{{ item.email }}</small>
+            </div>
+            <div class="col-6">
+              <button class="btn btn-primary" (click)="onEdit(item)">
+                Edit
+              </button>
+              <button class="btn btn-danger" (click)="onDelete(item)">
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+  } @else {
+  <div class="row">
+    <div class="col-12 p-4 text-center">
+      <p>No Record Found. Create New Record</p>
+    </div>
+  </div>
+  }
+</div>
+
+<div class="modal" #myModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Create New Student</h4>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-8">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              [(ngModel)]="studentObj.name"
+              class="form-control"
+              placeholder="Name here"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <label for="mobile">Mobile</label>
+            <input
+              type="text"
+              [(ngModel)]="studentObj.mobileNumber"
+              class="form-control"
+              placeholder="Mobile here"
+            />
+          </div>
+          <div class="col-6">
+            <label for="email">Email</label>
+            <input
+              type="text"
+              [(ngModel)]="studentObj.email"
+              class="form-control"
+              placeholder="Email here"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <label for="city">City</label>
+            <input
+              type="text"
+              [(ngModel)]="studentObj.city"
+              class="form-control"
+              placeholder="City here"
+            />
+          </div>
+          <div class="col-4">
+            <label for="state">State</label>
+            <input
+              type="text"
+              [(ngModel)]="studentObj.state"
+              class="form-control"
+              placeholder="State here"
+            />
+          </div>
+          <div class="col-4">
+            <label for="pincode">Pincode</label>
+            <input
+              type="text"
+              [(ngModel)]="studentObj.pincode"
+              class="form-control"
+              placeholder="Pincode here"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <label for="name">Address</label>
+            <textarea
+              name="address"
+              id="address"
+              rows="3"
+              [(ngModel)]="studentObj.address"
+              class="form-control"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="closeModal()">
+          Close
+        </button>
+        @if (studentObj.id ==0) {
+        <button type="button" class="btn btn-success" (click)="saveStudent()">
+          Save
+        </button>
+        } @else {
+        <button type="button" class="btn btn-primary" (click)="updateStudent()">
+          Update
+        </button>
+        }
+      </div>
+    </div>
+  </div>
+</div>
